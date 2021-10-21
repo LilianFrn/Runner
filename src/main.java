@@ -1,10 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -12,7 +11,8 @@ public class Main extends Application {
         primaryStage.setTitle("Hello world");
         Group root = new Group();
         Pane pane = new Pane(root);
-        Scene theScene = new Scene(pane, 600, 400,true);
+        Camera cam = new Camera(200,300);
+        GameScene theScene = new GameScene(cam, pane, 600, 400,true);
         primaryStage.setScene(theScene);
         primaryStage.show();
     }
