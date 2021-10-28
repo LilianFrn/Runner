@@ -1,11 +1,11 @@
 public class Camera {
+
     private Integer cx;
     private Integer cy;
 
     public Integer getCx() {
         return cx;
     }
-
     public Integer getCy() {
         return cy;
     }

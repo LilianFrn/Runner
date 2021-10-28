@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public class main extends Application {
 
@@ -12,7 +13,10 @@ public class main extends Application {
         Group root = new Group();
         Pane pane = new Pane(root);
         Camera cam = new Camera(200,300);
-        GameScene theScene = new GameScene(cam, pane, 600, 400,true);
+        Image background = new Image("./images/desert.png");
+        Image fullhearts = new Image("./images/fullhearts.png");
+        GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts);
+        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView());
         primaryStage.setScene(theScene);
         primaryStage.show();
     }
