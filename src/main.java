@@ -12,11 +12,12 @@ public class main extends Application {
         primaryStage.setTitle("Hello world");
         Group root = new Group();
         Pane pane = new Pane(root);
-        Camera cam = new Camera(200,300);
+        Camera cam = new Camera(800,800);
         Image background = new Image("./images/desert.png");
         Image fullhearts = new Image("./images/fullhearts.png");
-        GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts);
-        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView());
+        Image spriteSheet = new Image("./images/heros.png");
+        GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts, spriteSheet);
+        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView(),theScene.getHero().getImageView());
         primaryStage.setScene(theScene);
         primaryStage.show();
     }

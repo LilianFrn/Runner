@@ -1,4 +1,3 @@
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -8,27 +7,33 @@ public class AnimatedThing {
     private Integer Y;
     private Image image;
     private ImageView imageView;
-    private Integer state;
-    private Integer nbFrames;
-    private Integer hFrame;
-    private Integer wFrame;
-    private Integer xFrame;
-    private Integer yFrame;
+    private int index;
+    private Integer tFrame;
+    private Integer indexMax;
+    private Integer winSizel;
+    private Integer winSizeh;
+    private Integer offFrame;
 
-    public AnimatedThing(Integer X, Integer Y, Image image, Integer xFrame, Integer yFrame, Integer hFrame, Integer wFrame) {
-        this.X = X;
-        this.Y = Y;
-        this.xFrame = xFrame;
-        this.yFrame = yFrame;
-        this.hFrame = hFrame;
-        this.wFrame = wFrame;
+    public AnimatedThing(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh, Integer offFrame) {
+        X = x;
+        Y = y;
         this.image = image;
+        this.index = index;
+        this.tFrame = tFrame;
+        this.indexMax = indexMax;
+        this.winSizeh = winSizeh;
+        this.winSizel = winSizel;
+        this.offFrame = offFrame;
         imageView = new ImageView(image);
         imageView.setX(X);
         imageView.setY(Y);
-        imageView.setViewport(new Rectangle2D(xFrame,yFrame,hFrame,wFrame));
     }
 
+    static void update(long time){
+
+    }
+
+    public int getIndex() {return index; }
     public ImageView getImageView() {
         return imageView;
     }

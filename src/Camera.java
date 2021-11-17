@@ -15,6 +15,10 @@ public class Camera {
         this.cy = cy;
     }
 
+    static void update(long time){
+
+    }
+
     @Override
     public String toString() {
         return cx+","+cy;
