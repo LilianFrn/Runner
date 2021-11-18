@@ -14,6 +14,10 @@ public class AnimatedThing {
     private Integer winSizeh;
     private Integer offFrame;
 
+    public Integer getY() {
+        return Y;
+    }
+
     public AnimatedThing(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh, Integer offFrame) {
         X = x;
         Y = y;
@@ -29,11 +33,24 @@ public class AnimatedThing {
         imageView.setY(Y);
     }
 
-    static void update(long time){
-
+    void update(long time){
+        index = (index+1)%indexMax;
+        if (Y<=220) {Y=Y+20; imageView.setY(Y);}
+        if (Y>220) {Y=240; imageView.setY(Y);}
     }
 
-    public int getIndex() {return index; }
+    public int getIndex() {
+        return index;
+    }
+
+    public Integer gettFrame() {
+        return tFrame;
+    }
+
+    public Integer getOffFrame() {
+        return offFrame;
+    }
+
     public ImageView getImageView() {
         return imageView;
     }

@@ -15,7 +15,7 @@ public class Camera {
         this.cy = cy;
     }
 
-    static void update(long time){
+    void update(long time){
 
     }
 
