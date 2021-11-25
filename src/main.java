@@ -12,7 +12,7 @@ public class main extends Application {
         primaryStage.setTitle("Hello world");
         Group root = new Group();
         Pane pane = new Pane(root);
-        Camera cam = new Camera(800,800);
+        Camera cam = new Camera(0,0);
         Image background = new Image("./images/desert.png");
         Image fullhearts = new Image("./images/fullhearts.png");
         Image spriteSheet = new Image("./images/heros.png");

@@ -14,7 +14,7 @@ public class GameScene extends Scene {
     private Image spriteSheet;
     private StaticThing stfullhearts;
     private int numberOfLives;
-    private static Hero hero;
+    private Hero hero;
     private long last;
 
     public GameScene(Camera cam, Pane pane, Integer sx, Integer sy, boolean bool, Image background, Image fullhearts, Image spriteSheet) {
@@ -29,10 +29,20 @@ public class GameScene extends Scene {
         left.getImageView().setViewport(new Rectangle2D(0,0,800,400));
         right = new StaticThing(800,0,background);
         right.getImageView().setViewport(new Rectangle2D(0,0,800,400));
-        hero = new Hero(80,0, spriteSheet,1,38000000,6,60,100,84);
+        hero = new Hero(80,250, spriteSheet,1,38000000,6,60,100,84);
         stfullhearts = new StaticThing(20,20,fullhearts);
         stfullhearts.getImageView().setViewport(new Rectangle2D(0,0,35*numberOfLives,32));
+        this.setOnMouseClicked((event)->{
+            System.out.println("Jump");
+            hero.jump();
+        });
+    }
 
+    void update(long time){
+        hero.getImageView().setViewport(new Rectangle2D((hero.getOffFrame()*hero.getIndex())+7, 0,75,100));
+        left.getImageView().setX(0-cam.getCx()%800);
+        right.getImageView().setX(800-cam.getCx()%800);
+        hero.setX(hero.getX()+10);
     }
 
     AnimationTimer timer = new AnimationTimer(){
@@ -40,15 +50,11 @@ public class GameScene extends Scene {
             if (time - last >= hero.gettFrame()) {
                 hero.update(time);
                 cam.update(time);
-                GameScene.update(time);
+                update(time);
                 last = time;
             }
         }
     };
-
-    static void update(long time){
-        hero.getImageView().setViewport(new Rectangle2D((hero.getOffFrame()*hero.getIndex())+7, 0,75,100));
-    }
 
     public Camera getCam() { return cam; }
     public StaticThing getLeft() { return left; }
