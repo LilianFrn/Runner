@@ -6,6 +6,7 @@ public class Camera {
     double vx = 0;
     double km = 0.1;
     double fm = 1;
+    double xhero = 0;
 
     public Integer getCx() {
         return cx;
@@ -19,8 +20,16 @@ public class Camera {
         this.cy = cy;
     }
 
+    public void setXhero(double xhero) {
+        this.xhero = xhero;
+    }
+
+    public double getXhero() {
+        return xhero;
+    }
+
     void update(long time){
-        ax = km*(80-cx)+fm*vx;
+        ax = km*(xhero-cx)+fm*vx;
         vx = ax;
         cx = (int)(vx);
     }

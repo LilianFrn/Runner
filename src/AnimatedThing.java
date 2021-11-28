@@ -1,5 +1,7 @@
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 
 public class AnimatedThing {
 
@@ -12,7 +14,53 @@ public class AnimatedThing {
     private Integer indexMax;
     private Integer winSizel;
     private Integer winSizeh;
-    private Integer offFrame;
+    private Integer offX;
+    private Integer offY;
+
+    public AnimatedThing(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh, Integer offX, Integer offY) {
+        X = x;
+        Y = y;
+        this.image = image;
+        this.index = index;
+        this.tFrame = tFrame;
+        this.indexMax = indexMax;
+        this.winSizeh = winSizeh;
+        this.winSizel = winSizel;
+        this.offX = offX;
+        this.offY = offY;
+        imageView = new ImageView(image);
+        imageView.setX(X);
+        imageView.setY(Y);
+    }
+
+    public Rectangle2D getHitbox() {
+        Rectangle2D rec = new Rectangle2D(getImageView().getX(),getImageView().getY(),getWinSizel(),getWinSizeh());
+        return rec;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Integer gettFrame() {
+        return tFrame;
+    }
+
+    public Integer getOffY() {
+        return offY;
+    }
+
+    public void setOffY(Integer offY) {
+        this.offY = offY;
+    }
+
+    public Integer getOffX() {
+        return offX;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
 
     public void setX(Integer x) {
         X = x;
@@ -20,6 +68,10 @@ public class AnimatedThing {
 
     public Integer getIndexMax() {
         return indexMax;
+    }
+
+    public void setIndexMax(Integer indexMax) {
+        this.indexMax = indexMax;
     }
 
     public void setIndex(int index) {
@@ -34,40 +86,11 @@ public class AnimatedThing {
         return X;
     }
 
-    public AnimatedThing(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh, Integer offFrame) {
-        X = x;
-        Y = y;
-        this.image = image;
-        this.index = index;
-        this.tFrame = tFrame;
-        this.indexMax = indexMax;
-        this.winSizeh = winSizeh;
-        this.winSizel = winSizel;
-        this.offFrame = offFrame;
-        imageView = new ImageView(image);
-        imageView.setX(X);
-        imageView.setY(Y);
+    public Integer getWinSizel() {
+        return winSizel;
     }
 
-
-
-    void jump(){
-        imageView.setY(0);
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public Integer gettFrame() {
-        return tFrame;
-    }
-
-    public Integer getOffFrame() {
-        return offFrame;
-    }
-
-    public ImageView getImageView() {
-        return imageView;
+    public Integer getWinSizeh() {
+        return winSizeh;
     }
 }

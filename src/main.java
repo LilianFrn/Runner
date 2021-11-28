@@ -16,8 +16,9 @@ public class main extends Application {
         Image background = new Image("./images/desert.png");
         Image fullhearts = new Image("./images/fullhearts.png");
         Image spriteSheet = new Image("./images/heros.png");
-        GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts, spriteSheet);
-        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView(),theScene.getHero().getImageView());
+        Image wolfSheet = new Image("./images/wolf.png");
+        GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts, spriteSheet, wolfSheet);
+        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView(),theScene.getHero().getImageView(),theScene.getWolf().getImageView());
         primaryStage.setScene(theScene);
         primaryStage.show();
     }
