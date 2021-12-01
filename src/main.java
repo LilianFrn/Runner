@@ -18,7 +18,10 @@ public class main extends Application {
         Image spriteSheet = new Image("./images/heros.png");
         Image wolfSheet = new Image("./images/wolf.png");
         GameScene theScene = new GameScene(cam, pane, 800, 400,true, background, fullhearts, spriteSheet, wolfSheet);
-        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView(),theScene.getHero().getImageView(),theScene.getWolf().getImageView());
+        root.getChildren().addAll(theScene.getLeft().getImageView(),theScene.getRight().getImageView(),theScene.getStfullhearts().getImageView(),theScene.getHero().getImageView());
+        for(int i=0; i<=theScene.getNfoe(); i++) {
+            root.getChildren().add(theScene.getList().get(i).getImageView());
+        }
         primaryStage.setScene(theScene);
         primaryStage.show();
     }

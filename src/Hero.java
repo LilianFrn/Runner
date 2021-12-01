@@ -6,6 +6,8 @@ public class Hero extends AnimatedThing {
     int X;
     double vy = 0;
     double ay = 0;
+    long tInv = 0;
+    int c = 1;
 
     public Hero(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh , Integer offX, Integer offY) {
         super(x, y, image, index, tFrame, indexMax, winSizel, winSizeh, offX, offY);
@@ -14,7 +16,7 @@ public class Hero extends AnimatedThing {
     }
 
     void update(long time){
-        if(Y==250) {
+        if(Y==250 && c==1) {
             setOffY(0);
             setIndex((getIndex() + 1) % getIndexMax());
         }
@@ -28,11 +30,23 @@ public class Hero extends AnimatedThing {
         Y = (int)vy+Y;
         if (Y>=250) {ay=0; vy=0; Y=250;}
         getImageView().setY(Y);
+        if(tInv>0){
+            tInv-=time;
+        }
+        c=(c+1)%10;
     }
 
     void jump() {
         ay -= 8;
         vy = -4;
         System.out.println("Jump");
+    }
+
+    boolean isInvincible() {
+        return (tInv>0);
+    }
+
+    public void setTInv(long tInv) {
+        this.tInv = tInv;
     }
 }
