@@ -8,6 +8,7 @@ public class Hero extends AnimatedThing {
     double ay = 0;
     long tInv = 0;
     int c = 1;
+    int cinv = 1;
 
     public Hero(Integer x, Integer y, Image image, Integer index, Integer tFrame, Integer indexMax, Integer winSizel, Integer winSizeh , Integer offX, Integer offY) {
         super(x, y, image, index, tFrame, indexMax, winSizel, winSizeh, offX, offY);
@@ -20,25 +21,34 @@ public class Hero extends AnimatedThing {
             setOffY(0);
             setIndex((getIndex() + 1) % getIndexMax());
         }
-        if(Y<250) {
+        if(Y<250 && Y>220) {
             setOffY(160);
             if (vy<0) {setIndex(0);}
             if (vy>=0) {setIndex(1);}
-            ay += 2;
+            ay += 0.2;
+        }
+        if(Y<225) {
+            setOffY(160);
+            if (vy<0) {setIndex(0);}
+            if (vy>=0) {setIndex(1);}
+            ay += 0.15;
         }
         vy = vy+ay;
         Y = (int)vy+Y;
         if (Y>=250) {ay=0; vy=0; Y=250;}
         getImageView().setY(Y);
         if(tInv>0){
-            tInv-=time;
+            cinv = (cinv+1)%50;
+            if (cinv == 1){
+                tInv-=time;
+            }
         }
         c=(c+1)%10;
     }
 
     void jump() {
-        ay -= 8;
-        vy = -4;
+        ay -= 1.7;
+        vy = -6;
         System.out.println("Jump");
     }
 

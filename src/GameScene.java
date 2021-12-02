@@ -3,8 +3,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.animation.AnimationTimer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import java.util.concurrent.ThreadLocalRandom;
-
 import java.util.ArrayList;
 
 public class GameScene extends Scene {
@@ -19,10 +23,12 @@ public class GameScene extends Scene {
     private StaticThing stfullhearts;
     private int numberOfLives;
     private Hero hero;
-    private Foe wolf;
     private long last;
     private ArrayList<Foe> list;
     private int nfoe;
+    private int wolf;
+    private Text fin;
+    private Text tryAgain;
 
     public GameScene(Camera cam, Pane pane, Integer sx, Integer sy, boolean bool, Image background, Image fullhearts, Image spriteSheet, Image wolfSheet) {
         super(pane,sx,sy,bool);
@@ -31,9 +37,21 @@ public class GameScene extends Scene {
         this.fullhearts = fullhearts;
         this.spriteSheet = spriteSheet;
         this.wolfSheet = wolfSheet;
+
         numberOfLives = 3;
-        nfoe = 100;
+        nfoe = ThreadLocalRandom.current().nextInt(20, 30);
+        wolf = 0;
         list = generateList(nfoe);
+
+        fin = new Text();
+        fin.setX(200);
+        fin.setY(100);
+        fin = textStyle(fin, 80);
+        tryAgain = new Text();
+        tryAgain.setX(300);
+        tryAgain.setY(150);
+        tryAgain = textStyle(tryAgain, 40);
+
         left = new StaticThing(0,0,background);
         left.getImageView().setViewport(new Rectangle2D(0,0,800,400));
         right = new StaticThing(800,0,background);
@@ -41,17 +59,25 @@ public class GameScene extends Scene {
         hero = new Hero(80,250, spriteSheet,0,3800000,6,60,100,84, 0);
         stfullhearts = new StaticThing(20,20,fullhearts);
         stfullhearts.getImageView().setViewport(new Rectangle2D(0,0,(35*numberOfLives)+1,32));
+
         this.setOnMouseClicked((event)->{
             if (hero.getImageView().getY()>=250) {hero.jump();}
         });
-        Atimer.start();
+    }
+
+    public Text textStyle(Text text, int t){
+        text.setFont(Font.font("Helvetica", FontWeight.BOLD, FontPosture.REGULAR, t));
+        text.setFill(Color.WHITE);
+        text.setStroke(Color.BLACK);
+        text.setStrokeWidth(2);
+        return text;
     }
 
     void update(long time){
         hero.getImageView().setViewport(new Rectangle2D((hero.getOffX()*hero.getIndex())+7, 0+hero.getOffY(),75,100));
         for (int i=0; i < nfoe; i++){
             list.get(i).getImageView().setViewport(new Rectangle2D((list.get(i).getOffX()*list.get(i).getIndex())+23, 43+list.get(i).getOffY(),131,78));
-            list.get(i).getImageView().setX(list.get(i).getX()-(cam.getCx())*3);
+            list.get(i).getImageView().setX(list.get(i).getX()-(cam.getCx())*2);
             if (collision(hero, list.get(i)) && hero.isInvincible()==false) {
                 System.out.println("Crash");
                 numberOfLives-=1;
@@ -59,11 +85,24 @@ public class GameScene extends Scene {
                 if (numberOfLives==0){
                     stfullhearts.getImageView().setViewport(new Rectangle2D(0,0,1,1));
                     Atimer.stop();
+                    fin.setText("Game Over");
+                    tryAgain.setText("Try again :)");
                 }
                 else {
                     stfullhearts.getImageView().setViewport(new Rectangle2D(0,0,35*numberOfLives,32));
                 }
             }
+        }
+        if (wolf<nfoe){
+            if (list.get(wolf).getImageView().getX()<0){
+                wolf++;
+            }
+        }
+        if (wolf==nfoe){
+            Atimer.stop();
+            fin.setText("You won !");
+            tryAgain.setX(230);
+            tryAgain.setText("Congratulations");
         }
         left.getImageView().setX(0-cam.getCx()%800);
         right.getImageView().setX(800-cam.getCx()%800);
@@ -87,7 +126,7 @@ public class GameScene extends Scene {
     public boolean collision(AnimatedThing a1, AnimatedThing a2){
         Rectangle2D rec1 = a1.getHitbox();
         Rectangle2D rec2 = a2.getHitbox();
-        Rectangle2D rec3 = new Rectangle2D(rec2.getMinX(),rec2.getMinY(),rec2.getWidth()-40,rec2.getHeight());
+        Rectangle2D rec3 = new Rectangle2D(rec2.getMinX(),rec2.getMinY(),rec2.getWidth()-60,rec2.getHeight());
         return rec1.intersects(rec3);
     }
 
@@ -103,6 +142,7 @@ public class GameScene extends Scene {
         return list;
     }
 
+    public AnimationTimer getAtimer() { return Atimer;}
     public Camera getCam() { return cam; }
     public StaticThing getLeft() { return left; }
     public StaticThing getRight() { return right; }
@@ -110,4 +150,13 @@ public class GameScene extends Scene {
     public Hero getHero() { return hero; }
     public ArrayList<Foe> getList() { return list; }
     public int getNfoe() { return nfoe; }
+    public int getWolf() {return wolf;}
+    public int getNumberOfLives() { return numberOfLives; }
+    public Text getFin() {
+        return fin;
+    }
+
+    public Text getTryAgain() {
+        return tryAgain;
+    }
 }
